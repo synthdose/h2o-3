@@ -2,7 +2,6 @@ package hex.glrm;
 
 import hex.genmodel.algos.glrm.GlrmMojoModel;
 import water.MRTask;
-import water.MemoryManager;
 import water.fvec.Chunk;
 import water.fvec.NewChunk;
 
@@ -52,6 +51,8 @@ public class GLRMGenX  extends MRTask<GLRMGenX> {
     _gMojoModel._numLevels = arch._numLevels;
     _gMojoModel._catOffsets = arch._catOffsets;
     _gMojoModel._archetypes = arch.getY(false);
+    // allocate arrays
+    _gMojoModel.allocateMemory();
   }
 
   public void map(Chunk[] chks, NewChunk[] preds) {
@@ -59,8 +60,8 @@ public class GLRMGenX  extends MRTask<GLRMGenX> {
     long rowStart = chks[0].start();
     long baseSeed = _gMojoModel._seed+rowStart;
 
-    double[] rowdata = MemoryManager.malloc8d(chks.length);  // read in each row of data
-    double[] pdimensions = MemoryManager.malloc8d(_k);
+    double[] rowdata = new double[chks.length];  // read in each row of data
+    double[] pdimensions = new double[_k];
     for (int rid = 0; rid < chks[0]._len; ++rid) {
       for (int col = 0; col < featureLen; col++) {
         rowdata[col] = chks[col].atd(rid);

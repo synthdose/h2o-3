@@ -401,7 +401,8 @@ public class GLRMTest extends TestUtil {
     try {
       Scope.enter();
       CreateFrame cf = new CreateFrame();
-      Random generator = new Random();
+      cf.seed = 12345;
+      Random generator = new Random(cf.seed);
       int numRows = generator.nextInt(10000) + 50000;
       int numCols = generator.nextInt(17) + 3;
       cf.rows = numRows;
@@ -412,7 +413,8 @@ public class GLRMTest extends TestUtil {
       cf.has_response = false;
       cf.positive_response = true;
       cf.missing_fraction = 0.1;
-      cf.seed = System.currentTimeMillis();
+     // cf.seed = System.currentTimeMillis();
+
       System.out.println("Createframe parameters: rows: " + numRows + " cols:" + numCols + " seed: " + cf.seed);
 
       Frame trainMultinomial = Scope.track(cf.execImpl().get());
