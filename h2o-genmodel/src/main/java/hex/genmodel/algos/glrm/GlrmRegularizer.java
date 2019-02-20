@@ -51,7 +51,12 @@ public enum GlrmRegularizer {
     @Override public double[] rproxgrad(double[] u, int[] idxs, double[] ucsum, double[] x, double delta, Random rand)
     { return rproxgrad(u,delta,rand);}
     @Override public double[] rproxgrad(double[] u, double[] v, double delta, Random rand) {
-      if (u == null || delta == 0) return v;
+      if (u==null)
+        return v;
+      if (delta == 0) {
+        System.arraycopy(u, 0, v, 0, u.length);
+        return v;
+      }
      // double[] v = new double[u.length];
       double f = 1/(1 + 2*delta);
       for (int i = 0; i < u.length; i++)
@@ -82,7 +87,12 @@ public enum GlrmRegularizer {
     { return rproxgrad(u,delta,rand);}
     @Override
     public double[] rproxgrad(double[] u, double[] v, double delta, Random rand) {
-      if (u == null || delta == 0) return v;
+      if (u==null)
+        return v;
+      if (delta == 0) {
+        System.arraycopy(u, 0, v, 0, u.length);
+        return v;
+      }
       //double[] v = new double[u.length];
       // Proof uses Moreau decomposition;
       // see section 6.5.1 of Parikh and Boyd https://web.stanford.edu/~boyd/papers/pdf/prox_algs.pdf
@@ -114,7 +124,12 @@ public enum GlrmRegularizer {
     { return rproxgrad(u,delta,rand);}
     @Override
     public double[] rproxgrad(double[] u, double[] v, double delta, Random rand) {
-      if (u == null || delta == 0) return v;
+      if (u==null)
+        return v;
+      if (delta == 0) {
+        System.arraycopy(u, 0, v, 0, u.length);
+        return v;
+      }
     //  double[] v = new double[u.length];
       for (int i = 0; i < u.length; i++)
         v[i] = Math.max(u[i] - delta, 0) + Math.min(u[i] + delta, 0);
@@ -143,7 +158,12 @@ public enum GlrmRegularizer {
     { return rproxgrad(u,delta,rand);}
     @Override
     public double[] rproxgrad(double[] u, double[] v, double delta, Random rand) {
-      if (u == null || delta == 0) return v;
+      if (u==null)
+        return v;
+      if (delta == 0) {
+        System.arraycopy(u, 0, v, 0, u.length);
+        return v;
+      }
     //  double[] v = new double[u.length];
       for (int i = 0; i < u.length; i++)
         v[i] = Math.max(u[i], 0);
@@ -175,7 +195,12 @@ public enum GlrmRegularizer {
     { return rproxgrad(u,delta,rand);}
     @Override
     public double[] rproxgrad(double[] u, double[] v, double delta, Random rand) {
-      if (u == null || delta == 0) return v;
+      if (u==null)
+        return v;
+      if (delta == 0) {
+        System.arraycopy(u, 0, v, 0, u.length);
+        return v;
+      }
       //double[] v = new double[u.length];
       int idx = ArrayUtils.maxIndex(u, rand);
       v[idx] = u[idx] > 0 ? u[idx] : 1e-6;
@@ -206,7 +231,12 @@ public enum GlrmRegularizer {
     }
     @Override
     public double[] rproxgrad(double[] u, double[] v, double delta, Random rand) {
-      if (u == null || delta == 0) return v;
+      if (u==null)
+        return v;
+      if (delta == 0) {
+        System.arraycopy(u, 0, v, 0, u.length);
+        return v;
+      }
       //double[] v = new double[u.length];
       int idx = ArrayUtils.maxIndex(u, rand);
       v[idx] = 1;
