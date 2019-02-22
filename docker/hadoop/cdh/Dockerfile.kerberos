@@ -10,7 +10,7 @@ ARG PATH_PREFIX
 COPY ${PATH_PREFIX}/../common/kerberos/krb5.conf /etc/krb5.conf
 COPY ${PATH_PREFIX}/../common/conf-kerberos/ ${HADOOP_CONF_DIR}
 COPY ${PATH_PREFIX}/../common/kerberos/00_kerberos_init /etc/startup/
-COPY ${PATH_PREFIX}/../common/hive-kerberos/hive-site.xml ${HIVE_HOME}/conf
+COPY ${PATH_PREFIX}/../common/conf-hive-kerberos/hive-site.xml /etc/hive/conf/
 
 RUN \
     chmod +x /usr/sbin/krb-init-kadmin.sh && \
