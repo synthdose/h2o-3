@@ -157,13 +157,9 @@ public class GlrmMojoModel extends MojoModel {
 
     for (int i=0; i < _ncats; i++) {
       double temp = row[_permutation[i]];
-      if (i >= a.length)
-        System.out.println("fracked.");
       a[i] = (temp>=_numLevels[i])?Double.NaN:temp; // set unseen levels to NaN
     }
     for (int i = _ncats; i < _ncolA; i++) {
-      if (i >= a.length)
-        System.out.println("fracked.");
       a[i] = row[_permutation[i]];
     }
 

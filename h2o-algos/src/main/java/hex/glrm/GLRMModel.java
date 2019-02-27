@@ -334,11 +334,12 @@ public class GLRMModel extends Model<GLRMModel, GLRMModel.GLRMParameters, GLRMMo
       _ncolA = ncolA; _ncolX = ncolX;
       _save_imputed = save_imputed;
       _reverse_transform = reverse_transform;
-      if (_output._ncats>0)
-        _tprod = new double[_output._archetypes_raw._numLevels[0]];
+
     }
 
     @Override public void map(Chunk[] chks) {
+      if (_output._ncats>0)  // each thread will have its own _tprod
+        _tprod = new double[_output._archetypes_raw._numLevels[0]];
       float[] atmp = new float[_ncolA];
       double[] xtmp = new double[_ncolX];
       double[] preds = new double[_ncolA];

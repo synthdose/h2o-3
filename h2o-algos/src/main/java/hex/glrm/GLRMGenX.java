@@ -51,11 +51,12 @@ public class GLRMGenX  extends MRTask<GLRMGenX> {
     _gMojoModel._numLevels = arch._numLevels;
     _gMojoModel._catOffsets = arch._catOffsets;
     _gMojoModel._archetypes = arch.getY(false);
-    // allocate arrays
-    _gMojoModel.allocateMemory();
+
   }
 
   public void map(Chunk[] chks, NewChunk[] preds) {
+    // allocate arrays
+    _gMojoModel.allocateMemory();
     int featureLen = chks.length;
     long rowStart = chks[0].start();
     long baseSeed = _gMojoModel._seed+rowStart;

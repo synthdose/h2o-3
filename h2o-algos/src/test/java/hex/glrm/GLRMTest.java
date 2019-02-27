@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GLRMTest extends TestUtil {
   public final double TOLERANCE = 1e-6;
-  @BeforeClass public static void setup() { stall_till_cloudsize(1); }
+  @BeforeClass public static void setup() { stall_till_cloudsize(3); }
 
   public double errStddev(double[] expected, double[] actual) {
     double err = 0;
