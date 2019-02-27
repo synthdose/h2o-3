@@ -3,6 +3,7 @@ package hex.schemas;
 import hex.mojo.GenericModel;
 import hex.mojo.GenericModelOutput;
 import hex.mojo.GenericModelParameters;
+import water.api.API;
 import water.api.schemas3.ModelOutputSchemaV3;
 import water.api.schemas3.ModelSchemaV3;
 
@@ -19,6 +20,9 @@ public class GenericModelV3 extends ModelSchemaV3<GenericModel, GenericModelV3, 
     }
 
     public static final class GenericModelOutputV3 extends ModelOutputSchemaV3<GenericModelOutput, GenericModelOutputV3>{
+
+        @API(help="Version of H2O the generic model has been trained on, if applicable", direction=API.Direction.OUTPUT, level = API.Level.secondary)
+        String h2oVersion;
         
     }
 }

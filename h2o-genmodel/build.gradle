@@ -32,4 +32,5 @@ dependencies {
     exclude group: 'org.slf4j'
   }
   compileOnly "com.google.protobuf.nano:protobuf-javanano:3.1.0"
+  compile project(":h2o-externalmodel")
 }

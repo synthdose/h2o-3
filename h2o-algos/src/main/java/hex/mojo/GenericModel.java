@@ -1,16 +1,15 @@
 package hex.mojo;
 
+import ai.h2o.model.ExternalModel;
 import hex.*;
-import hex.genmodel.MojoModel;
 import hex.genmodel.algos.kmeans.KMeansMojoModel;
-import hex.genmodel.easy.prediction.AutoEncoderModelPrediction;
 import hex.tree.isofor.ModelMetricsAnomaly;
 import water.H2O;
 import water.Key;
 
 public class GenericModel extends Model<GenericModel, GenericModelParameters, GenericModelOutput> {
     
-    MojoModel _mojoModel;
+    ExternalModel _externalModel;
     
     /**
      * Full constructor
@@ -19,10 +18,9 @@ public class GenericModel extends Model<GenericModel, GenericModelParameters, Ge
      * @param parms
      * @param output
      */
-    public GenericModel(Key<GenericModel> selfKey, GenericModelParameters parms, GenericModelOutput output, MojoModel mojoModel) {
-        // TODO: We might want to add reference for training and validation frame to re-construct metrics if we do not choose to get them from JSON inside MOJO
+    public GenericModel(Key<GenericModel> selfKey, GenericModelParameters parms, GenericModelOutput output, ExternalModel mojoModel) {
         super(selfKey, parms, output);
-        _mojoModel = mojoModel;
+        _externalModel = mojoModel;
     }
 
     @Override
@@ -38,8 +36,8 @@ public class GenericModel extends Model<GenericModel, GenericModelParameters, Ge
                 return new ModelMetricsOrdinal.MetricBuilderOrdinal(_output.nclasses(), domain);
             case Regression:  return new ModelMetricsRegression.MetricBuilderRegression();
             case Clustering:
-                assert _mojoModel instanceof KMeansMojoModel;
-                KMeansMojoModel kMeansMojoModel = (KMeansMojoModel) _mojoModel;
+                assert _externalModel instanceof KMeansMojoModel;
+                KMeansMojoModel kMeansMojoModel = (KMeansMojoModel) _externalModel;
                 return new ModelMetricsClustering.MetricBuilderClustering(_output.nfeatures(), kMeansMojoModel.getNumClusters());
             case AutoEncoder:
                 return new ModelMetricsAutoEncoder.MetricBuilderAutoEncoder(_output.nfeatures());
@@ -57,6 +55,6 @@ public class GenericModel extends Model<GenericModel, GenericModelParameters, Ge
     
     @Override
     protected double[] score0(double[] data, double[] preds) {
-        return _mojoModel.score0(data,preds);
+        return _externalModel.score(data,preds);
     }
 }

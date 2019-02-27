@@ -13,7 +13,7 @@ public class GenericV3 extends ModelBuilderSchema<Generic, GenericV3, GenericV3.
                 "mojo_key"
         };
         
-        @API(required = true, direction = API.Direction.INPUT, level = API.Level.critical, help = "Key to an uploaded MOJO archive frame", json = false)
+        @API(required = true, direction = API.Direction.INPUT, level = API.Level.critical, help = "Key to an uploaded MOJO archive frame")
         public KeyV3.FrameKeyV3 mojo_key;
     }
 }

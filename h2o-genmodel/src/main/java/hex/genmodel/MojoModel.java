@@ -1,12 +1,17 @@
 package hex.genmodel;
 
+
+import ai.h2o.model.ExternalModel;
+import ai.h2o.model.info.ExternalModelInfo;
+import hex.ModelCategory;
+
 import java.io.*;
 
 
 /**
  * Prediction model based on the persisted binary data.
  */
-public abstract class MojoModel extends GenModel {
+public abstract class MojoModel extends GenModel implements ExternalModel {
 
   public String _h2oVersion;
   public hex.ModelCategory _category;
@@ -65,4 +70,16 @@ public abstract class MojoModel extends GenModel {
     super(columns, domains, responseColumn);
   }
 
+  @Override
+  public double[] score(double[] data, double[] predictions) {
+    return score(data, predictions);
+  }
+
+  @Override
+  public ExternalModelInfo modelInfo() {
+    ExternalModelInfo externalModelInfo = new ExternalModelInfo(ExternalModelInfo.ModelCategory.valueOf(_category.name()),
+            _supervised, _domains, _domains, _names, _modelClassDistrib, _priorClassDistrib);
+    
+    return externalModelInfo;
+  }
 }

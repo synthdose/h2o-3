@@ -240,6 +240,24 @@ public abstract class ModelMojoReader<M extends MojoModel> {
     return domains;
   }
 
+  private String parseJson() {
+    return readFile("experimental/modelDetails.json");
+  }
+
+  private String readFile(final String filename) {
+    try (final BufferedReader textFile = _reader.getTextFile(filename)) {
+      final StringBuilder stringBuilder = new StringBuilder();
+      String row = textFile.readLine();
+      while (row != null) {
+        stringBuilder.append(row);
+        row = textFile.readLine();
+      }
+      return stringBuilder.toString();
+    } catch (IOException e) {
+      throw new IllegalStateException("Could not read file inside MOJO " + filename, e);
+    }
+  }
+  
   private static class RawValue {
     private final String _val;
     RawValue(String val) { _val = val; }
