@@ -19,8 +19,9 @@ public interface ExternalModel extends Serializable {
      * @param predictions Pre-allocated array for the predictions to be placed into. Prevents excessive memory allocation
      *                    and allows for reusability.
      * @return Pointer to the predictions array supplied as method's argument.
+     * @throws ScoringError Thrown when scoring us unable to be done, e.g. input data are malformed.
      */
-    double[] score(double[] data, double[] predictions);
+    double[] score(double[] data, double[] predictions) throws ScoringError;
 
     /**
      * Returns an immutable instance of {@link ExternalModelInfo} with all information about the model.

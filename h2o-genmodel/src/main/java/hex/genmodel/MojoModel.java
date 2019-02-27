@@ -2,8 +2,8 @@ package hex.genmodel;
 
 
 import ai.h2o.model.ExternalModel;
+import ai.h2o.model.ScoringError;
 import ai.h2o.model.info.ExternalModelInfo;
-import hex.ModelCategory;
 
 import java.io.*;
 
@@ -71,8 +71,12 @@ public abstract class MojoModel extends GenModel implements ExternalModel {
   }
 
   @Override
-  public double[] score(double[] data, double[] predictions) {
-    return score(data, predictions);
+  public double[] score(double[] data, double[] predictions) throws ScoringError {
+    try {
+      return score0(data, predictions);
+    } catch (Throwable t) {
+      throw new ScoringError(t.getMessage(), t);
+    }
   }
 
   @Override
