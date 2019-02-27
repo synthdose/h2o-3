@@ -23,7 +23,7 @@ public class GenericModelOutput extends Model.Output {
         _names = externalModelInfo.getColumnNames();
         _h2oVersion = externalModelInfo.getH2OVersion();
         _modelCategory = ModelCategory.valueOf(externalModelInfo.getModelCategory().name());
-        _nfeatures = externalModelInfo.getNumberOfFeatures() == null ? -1 : externalModelInfo.getNumberOfFeatures();
+        _nfeatures = externalModelInfo.getNumberOfFeatures();
     }
 
     @Override

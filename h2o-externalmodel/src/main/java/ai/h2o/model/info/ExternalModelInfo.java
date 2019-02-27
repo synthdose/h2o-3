@@ -21,7 +21,7 @@ public class ExternalModelInfo {
     private final String _weightsColumnName;
     private final String _foldColumn;
     private final String _h2oVersion;
-    private final Integer _numberOfFeatures;
+    private final int _numberOfFeatures;
 
     private String[] _columnNames;
     private double[] _classDistributon;
@@ -41,7 +41,8 @@ public class ExternalModelInfo {
      * @param _priorClassDistribution
      */
     public ExternalModelInfo(ModelCategory _modelCategory, boolean _isSupervised, String[][] _domains,
-                             String[][] _originalDomains, String[] _columnNames, double[] _classDistributon, double[] _priorClassDistribution) {
+                             String[][] _originalDomains, String[] _columnNames, double[] _classDistributon,
+                             double[] _priorClassDistribution) {
         Objects.requireNonNull(_modelCategory, "Model category is required.");
         Objects.requireNonNull(_domains, "Features domains are required.");
         Objects.requireNonNull(_originalDomains, "Original domains of the model features are required");
@@ -61,7 +62,7 @@ public class ExternalModelInfo {
         _weightsColumnName = null;
         _foldColumn = null;
         _h2oVersion = null;
-        _numberOfFeatures = null;
+        _numberOfFeatures = _columnNames.length - 1; // Response is included in column names, subtract it
         _additionalAttributes = null;
     }
 
