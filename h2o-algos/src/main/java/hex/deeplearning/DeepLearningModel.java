@@ -205,6 +205,7 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
     _output._scoring_history = DeepLearningScoringInfo.createScoringHistoryTable(scoringInfo, (null != get_params()._valid), false, _output.getModelCategory(), _output.isAutoencoder());
     _output._variable_importances = calcVarImp(last_scored().variable_importances);
     _output.setNames(dataInfo._adaptedFrame.names());
+    _output.setColumnTypes(dataInfo._adaptedFrame.typesStr());
     _output._domains = dataInfo._adaptedFrame.domains();
     assert(Arrays.equals(_key._kb, destKey._kb));
   }
@@ -223,6 +224,7 @@ public class DeepLearningModel extends Model<DeepLearningModel,DeepLearningModel
     final DataInfo dinfo = makeDataInfo(train, valid, _parms, nClasses);
     DKV.put(dinfo);
     _output.setNames(dinfo._adaptedFrame.names());
+    _output.setColumnTypes(dinfo._adaptedFrame.typesStr());
     _output._domains = dinfo._adaptedFrame.domains();
     _output._origNames = parms._train.get().names();
     _output._origDomains = parms._train.get().domains();
