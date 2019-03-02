@@ -1,0 +1,8 @@
+#!/bin/bash -ex
+
+cd $HIVE_HOME/scripts/metastore/upgrade/mysql && \
+    echo "CREATE DATABASE metastore; USE metastore; SOURCE hive-schema-${HIVE_SCHEMA_VERSION}.mysql.sql;" | mysql
+/usr/bin/mysqladmin -u root password 'root'
+
+cd /home/hive
+sudo -E -u hive nohup ${HIVE_HOME}/bin/hiveserver2 > /home/hive/hive.log & sleep 180
