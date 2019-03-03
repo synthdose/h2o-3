@@ -10,8 +10,7 @@ ARG DEFAULT_USER_UID=2117
 ARG R_VERSION='3.4.1'
 ARG PYTHON_VERSIONS='2.7,3.6'
 ARG JAVA_VERSIONS='8'
-ARG HIVE_VERSION='2.2.0'
-ARG HIVE_SCHEMA_VERSION='2.1.0'
+ARG HIVE_SCHEMA_VERSION='1.2.0'
 
 ENV DISTRIBUTION='hdp' \
     MASTER='yarn-client' \
@@ -21,7 +20,7 @@ ENV DISTRIBUTION='hdp' \
     YARN_USER=yarn \
     YARN_CONF_DIR=/etc/hadoop/conf \
     HDFS_USER=hdfs \
-    HIVE_HOME=/home/hive/apache-hive-${HIVE_VERSION}-bin \
+    HIVE_HOME=/usr/hdp/current/hive-server2 \
     HIVE_SCHEMA_VERSION=${HIVE_SCHEMA_VERSION}
 
 # Copy bin and sbin scripts
@@ -119,7 +118,7 @@ RUN chmod 700 /usr/sbin/startup.sh && \
     /usr/sbin/install_hive.sh && \
     ln -sf /usr/share/java/mysql-connector-java.jar $HIVE_HOME/lib/mysql-connector-java.jar
 
-RUN /usr/sbin/install_ldap.sh
+#RUN /usr/sbin/install_ldap.sh
 
 # Expose ports
 # H2O, Hadoop UI, Hive, LDAP
